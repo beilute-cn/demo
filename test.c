@@ -1,7 +1,10 @@
 #include <stdio.h>
-int main(void) {
-	printf("start\r\n");
 
-	// print("end\r\n");
+#define print(...) printf(__VA_ARGS__)
+
+int main(void) {
+	print("start\r\n");
+
+	print("end\r\n");
 	return 0;
 }
