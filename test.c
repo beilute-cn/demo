@@ -1,11 +1,9 @@
 #include <stdio.h>
 
-#define print(...) printf(__VA_ARGS__)
-
 int main(void)
 {
-    print("start\r\n");
+    printf("start\r\n");
 
-    print("end\r\n");
+    printf("end\r\n");
     return 0;
 }
