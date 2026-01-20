@@ -1,36 +1,3 @@
-import sys
-
-
-class a_3n1:
-
-    def __init__(self, n: int):
-        self.n = n
-        self.count = -1
-        self.powers = []
-        self.end = -1
-
-        def E(n: int) -> int:
-            if n <= 0:
-                raise ValueError("n must be a positive integer")
-            t = 1
-            while not (n & t):
-                t <<= 1
-            return t
-
-        while True:
-            e = E(n)
-            if e == n:
-                break
-            n = 3 * n + e
-
-    def __str__(self):
-        return f"a"
-
-
-t = a_3n1(10)
-print(t)
-
-sys.exit(-1)
 import random
 import string
 
@@ -307,7 +274,9 @@ def test():
     # call(f3)
     # call(f4)
     # call(f5)
-    call(f6)
+    # call(f6)
+    # call(f7)
+    call(f8)
 
 
 def f1():
@@ -965,15 +934,84 @@ def f6_2():
 \033[12l	回显关
 \033[20h	换行模式
 \033[20l	正常模式
+"""
 
 
+def f7():
+    # 2
+    # 4
+    # 直接在命令行演示，已删除的字符还会出现
+    print("替换")
+    print(f"{string.digits}")
+    print("插入")
+    print(f"{string.digits}\033[4h\033[5Dabcd\033[4l")
+
+    # 12
+
+    # 20
+    print(f"换行\033[20h")
+    print(string.digits * 20)
+    print(f"正常\033[20l")
+    print(string.digits * 20)
+
+
+"""
 8. 查询/报告
 序列	功能	响应
 \033[6n	查询光标位置	\033[<row>;<col>R
+    从1开始
 \033[5n	查询设备状态	\033[0n (正常)
+    0 正常
+    3 故障
 \033[0c	查询设备属性	设备相关
 \033[c	查询设备代码	设备相关
+    
+"""
 
+
+def f8():
+    import sys
+
+    # 响应回显到输入流
+    if False:
+        print("\033[6n", end="", flush=True)
+        # 读取响应，通常格式为 \033[row;colR
+        r = []
+        while True:
+            c = sys.stdin.read(1)
+            r.append(c)
+            if c == "R":
+                break
+        print(f"响应: {repr(r)}")
+
+    import sys
+    import msvcrt
+
+    print("test\nabcd", end="", flush=True)
+    # windows读取输入流
+
+    print("\033[6n", end="", flush=True)
+
+    response = ""
+
+    while True:
+        # 检查是否有按键输入
+        if msvcrt.kbhit():
+            ch = msvcrt.getch()
+            if isinstance(ch, bytes):
+                ch = ch.decode("utf-8", errors="ignore")
+            response += ch
+            if ch == "R":
+                break
+    print(f"{response=}")
+
+    # 当变量是转义序列时，直接输出变量和与名称一起输出不同
+    # x = f"\033[6n"
+    # print(f"{x}")
+    # print(f"{x=}")
+
+
+"""
 9. 标签/制表符
 序列	功能
 \033H	在当前位置设置制表符

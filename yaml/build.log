@@ -1,0 +1,100 @@
+
+
+
+
+============================================================================================================================================
+west build examples_int/unit_tests/flash_k4/pflash_test_all -b=kw47evk -p=always -d=build2/A_47_pflash_test_all --toolchain=armgcc -Dcore_id=cm33_core0 -DCONFIG_MCUX_COMPONENT_utilities.gcov=y
+============================================================================================================================================
+
+
+======================================== 标准流 ========================================
+=== making build dir C:\mcux\mcuxsdk\build2\A_47_pflash_test_all pristine
+=== generating a build system
+--- Build the default target debug
+-- CMake version: 4.2.1
+-- Found Python3: C:/sys/exe/Python313/python.exe (found suitable version "3.13.2", minimum required is "3.8") found components: Interpreter
+-- Found Ruby: ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x64-mingw-ucrt]
+-- Build toolchain: armgcc
+-- The C compiler identification is GNU 14.3.1
+-- The CXX compiler identification is GNU 14.3.1
+-- The ASM compiler identification is GNU
+-- Found assembler: C:/sys/exe/arm-gnu-toolchain/bin/arm-none-eabi-gcc.exe
+-- CMake Generator: Ninja
+-- CMake Generator location: C:/sys/exe/ninja-win/ninja.exe
+-- Ninja version: 1.13.1
+Parsing C:/mcux/mcuxsdk/Kconfig
+Loaded configuration 'C:/mcux/mcuxsdk/devices/prj.conf'
+Merged configuration 'C:/mcux/mcuxsdk/devices/Wireless/KW/KW47B42ZB7/prj.conf'
+Merged configuration 'C:/mcux/mcuxsdk/examples/prj.conf'
+Merged configuration 'C:/mcux/mcuxsdk/examples/_boards/kw47evk/prj.conf'
+Merged configuration 'C:/mcux/mcuxsdk/examples_int/unit_tests/prj.conf'
+Merged configuration 'C:/mcux/mcuxsdk/examples_int/unit_tests/flash_k4/pflash_test_all/prj.conf'
+Merged configuration 'C:/mcux/mcuxsdk/examples_int/_boards/kw47evk/unit_tests/prj.conf'
+Merged configuration 'C:/mcux/mcuxsdk/build2/A_47_pflash_test_all/kconfig/extra_kconfig_options.conf'
+Configuration saved to 'C:/mcux/mcuxsdk/build2/A_47_pflash_test_all/.config'
+Kconfig header saved to 'C:/mcux/mcuxsdk/build2/A_47_pflash_test_all\mcux_config.h'
+-- Generated C:/mcux/mcuxsdk/build2/A_47_pflash_test_all/mcuxsdk_version.h
+-- Will run code coverage for source: C:/mcux/mcuxsdk/drivers/flash_k4/fsl_k4_flash.c
+-- Will run code coverage for source: C:/mcux/mcuxsdk/drivers/flash_k4/fsl_k4_controller.c
+-- Configuring done (14.3s)
+-- Generating done (22.6s)
+-- Build files have been written to: C:/mcux/mcuxsdk/build2/A_47_pflash_test_all
+=== building application
+[1/31] Building ASM object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/devices/Wireless/KW/KW47B42ZB7/gcc/startup_KW47B42ZB7_cm33_core0.S.obj
+[2/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/devices/Wireless/KW/KW47B42ZB7/system_KW47B42ZB7_cm33_core0.c.obj
+[3/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/devices/Wireless/KW/KW47B42ZB7/drivers/fsl_clock.c.obj
+[4/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/examples/_boards/kw47evk/board.c.obj
+[5/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/examples/_boards/kw47evk/clock_config.c.obj
+[6/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/examples_int/_boards/kw47evk/unit_tests/flash_k4/pin_mux.c.obj
+[7/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/debug_console_lite/fsl_debug_console.c.obj
+[8/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/drivers/ccm32k/fsl_ccm32k.c.obj
+[9/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/drivers/common/fsl_common_arm.c.obj
+[10/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/examples_int/_boards/kw47evk/unit_tests/flash_k4/hardware_init.c.obj
+[11/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/drivers/common/fsl_common.c.obj
+[12/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/misc_utilities/fsl_syscall_stub.c.obj
+[13/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/drivers/cmc/fsl_cmc.c.obj
+[14/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/drivers/gpio/fsl_gpio.c.obj
+[15/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/drivers/spc/fsl_spc.c.obj
+[16/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/assert/fsl_assert.c.obj
+[17/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/drivers/lpuart/fsl_lpuart.c.obj
+[18/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/misc_utilities/fsl_sbrk.c.obj
+[19/31] Building ASM object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/misc_utilities/fsl_memcpy.S.obj
+[20/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/unity/gcov_support.c.obj
+[21/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/unity/gcov_common.c.obj
+[22/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/uart/fsl_adapter_lpuart.c.obj
+[23/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/str/fsl_str.c.obj
+[24/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/unity/gcov_func.c.obj
+[25/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/examples/_boards/kw47evk/board_init_gcov.c.obj
+[26/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/examples_int/unit_tests/sdmmc/tools/segger_semihosting.c.obj
+[27/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/drivers/flash_k4/fsl_k4_controller.c.obj
+[28/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/drivers/flash_k4/fsl_k4_flash.c.obj
+[29/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/pflash_test_all.c.obj
+[30/31] Building C object CMakeFiles/pflash_test_all_cm33_core0.dir/C_/mcux/mcuxsdk/components/unity/unity.c.obj
+[31/31] Linking C executable pflash_test_all_cm33_core0.elf
+C:/sys/exe/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/sys/exe/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v8-m.main+fp/hard\libc_nano.a(libc_a-signalr.o): in function `_getpid_r':
+signalr.c:(.text._getpid_r+0x0): warning: _getpid is not implemented and will always fail
+C:/sys/exe/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/sys/exe/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v8-m.main+fp/hard\libc_nano.a(libc_a-signalr.o): note: the message above does not take linker garbage collection into account
+C:/sys/exe/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/sys/exe/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v8-m.main+fp/hard\libc_nano.a(libc_a-signalr.o): in function `_kill_r':
+signalr.c:(.text._kill_r+0xe): warning: _kill is not implemented and will always fail
+C:/sys/exe/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/sys/exe/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v8-m.main+fp/hard\libc_nano.a(libc_a-signalr.o): note: the message above does not take linker garbage collection into account
+Memory region         Used Size  Region Size  %age Used
+    m_interrupts:          1 KB         1 KB    100.00%
+          m_text:       46900 B      2047 KB      2.24%
+         m_data0:        8816 B        32 KB     26.90%
+         m_data1:       28168 B       224 KB     12.28%
+    rpmsg_sh_mem:           0 B          0 B
+   m_core1_image:           0 B       256 KB      0.00%
+
+
+======================================== 错误流 ========================================
+
+
+
+
+
+
+============================================================================================================================================
+west build examples_int/unit_tests/flash_k4/pflash_timeout -b=kw47evk -p=always -d=build2/A_47_pflash_timeout --toolchain=armgcc -Dcore_id=cm33_core0 -DCONFIG_MCUX_COMPONENT_utilities.gcov=y
+============================================================================================================================================
+
+
