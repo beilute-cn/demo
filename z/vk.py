@@ -1,0 +1,154 @@
+import ctypes
+from ctypes import wintypes
+
+user32 = ctypes.windll.user32
+
+# Windows 虚拟键码完整映射表
+VK_CODE_MAP = {
+    # 鼠标按键
+    0x01: "VK_LBUTTON",  # 鼠标左键
+    0x02: "VK_RBUTTON",  # 鼠标右键
+    0x04: "VK_MBUTTON",  # 鼠标中键
+    0x05: "VK_XBUTTON1",  # X1 鼠标按键
+    0x06: "VK_XBUTTON2",  # X2 鼠标按键
+    # 控制键
+    0x08: "VK_BACK",  # Backspace
+    0x09: "VK_TAB",  # Tab
+    0x0C: "VK_CLEAR",  # Clear
+    0x0D: "VK_RETURN",  # Enter
+    0x10: "VK_SHIFT",  # Shift
+    0x11: "VK_CONTROL",  # Ctrl
+    0x12: "VK_MENU",  # Alt
+    0x13: "VK_PAUSE",  # Pause
+    0x14: "VK_CAPITAL",  # Caps Lock
+    # IME 相关
+    0x15: "VK_KANA",  # IME Kana
+    0x19: "VK_KANJI",  # IME Kanji
+    0x1B: "VK_ESCAPE",  # Esc
+    # 空格和导航键
+    0x20: "VK_SPACE",  # Space
+    0x21: "VK_PRIOR",  # Page Up
+    0x22: "VK_NEXT",  # Page Down
+    0x23: "VK_END",  # End
+    0x24: "VK_HOME",  # Home
+    0x25: "VK_LEFT",  # Left Arrow
+    0x26: "VK_UP",  # Up Arrow
+    0x27: "VK_RIGHT",  # Right Arrow
+    0x28: "VK_DOWN",  # Down Arrow
+    0x29: "VK_SELECT",  # Select
+    0x2A: "VK_PRINT",  # Print
+    0x2B: "VK_EXECUTE",  # Execute
+    0x2C: "VK_SNAPSHOT",  # Print Screen
+    0x2D: "VK_INSERT",  # Insert
+    0x2E: "VK_DELETE",  # Delete
+    0x2F: "VK_HELP",  # Help
+    # 数字键 0-9
+    **{0x30 + i: f"VK_{i}" for i in range(10)},
+    # 字母键 A-Z
+    **{0x41 + i: f"VK_{chr(0x41 + i)}" for i in range(26)},
+    # Windows 键
+    0x5B: "VK_LWIN",  # Left Windows
+    0x5C: "VK_RWIN",  # Right Windows
+    0x5D: "VK_APPS",  # Applications
+    0x5F: "VK_SLEEP",  # Sleep
+    # 数字键盘
+    0x60: "VK_NUMPAD0",
+    0x61: "VK_NUMPAD1",
+    0x62: "VK_NUMPAD2",
+    0x63: "VK_NUMPAD3",
+    0x64: "VK_NUMPAD4",
+    0x65: "VK_NUMPAD5",
+    0x66: "VK_NUMPAD6",
+    0x67: "VK_NUMPAD7",
+    0x68: "VK_NUMPAD8",
+    0x69: "VK_NUMPAD9",
+    0x6A: "VK_MULTIPLY",  # *
+    0x6B: "VK_ADD",  # +
+    0x6C: "VK_SEPARATOR",  # Separator
+    0x6D: "VK_SUBTRACT",  # -
+    0x6E: "VK_DECIMAL",  # .
+    0x6F: "VK_DIVIDE",  # /
+    # 功能键 F1-F24
+    **{0x70 + i: f"VK_F{i+1}" for i in range(24)},
+    # 锁定键
+    0x90: "VK_NUMLOCK",  # Num Lock
+    0x91: "VK_SCROLL",  # Scroll Lock
+    # 左右区分的修饰键
+    0xA0: "VK_LSHIFT",  # Left Shift
+    0xA1: "VK_RSHIFT",  # Right Shift
+    0xA2: "VK_LCONTROL",  # Left Ctrl
+    0xA3: "VK_RCONTROL",  # Right Ctrl
+    0xA4: "VK_LMENU",  # Left Alt
+    0xA5: "VK_RMENU",  # Right Alt
+    # 浏览器键
+    0xA6: "VK_BROWSER_BACK",
+    0xA7: "VK_BROWSER_FORWARD",
+    0xA8: "VK_BROWSER_REFRESH",
+    0xA9: "VK_BROWSER_STOP",
+    0xAA: "VK_BROWSER_SEARCH",
+    0xAB: "VK_BROWSER_FAVORITES",
+    0xAC: "VK_BROWSER_HOME",
+    # 音量控制
+    0xAD: "VK_VOLUME_MUTE",
+    0xAE: "VK_VOLUME_DOWN",
+    0xAF: "VK_VOLUME_UP",
+    # 媒体控制
+    0xB0: "VK_MEDIA_NEXT_TRACK",
+    0xB1: "VK_MEDIA_PREV_TRACK",
+    0xB2: "VK_MEDIA_STOP",
+    0xB3: "VK_MEDIA_PLAY_PAUSE",
+    # 应用启动键
+    0xB4: "VK_LAUNCH_MAIL",
+    0xB5: "VK_LAUNCH_MEDIA_SELECT",
+    0xB6: "VK_LAUNCH_APP1",
+    0xB7: "VK_LAUNCH_APP2",
+    # OEM 键（键盘布局相关）
+    0xBA: "VK_OEM_1",  # ;: (US)
+    0xBB: "VK_OEM_PLUS",  # =+
+    0xBC: "VK_OEM_COMMA",  # ,<
+    0xBD: "VK_OEM_MINUS",  # -_
+    0xBE: "VK_OEM_PERIOD",  # .>
+    0xBF: "VK_OEM_2",  # /? (US)
+    0xC0: "VK_OEM_3",  # `~ (US)
+    0xDB: "VK_OEM_4",  # [{ (US)
+    0xDC: "VK_OEM_5",  # \| (US)
+    0xDD: "VK_OEM_6",  # ]} (US)
+    0xDE: "VK_OEM_7",  # '" (US)
+    0xDF: "VK_OEM_8",
+    0xE2: "VK_OEM_102",  # <> or \| (Non-US)
+    # 其他
+    0xF6: "VK_ATTN",
+    0xF7: "VK_CRSEL",
+    0xF8: "VK_EXSEL",
+    0xF9: "VK_EREOF",
+    0xFA: "VK_PLAY",
+    0xFB: "VK_ZOOM",
+    0xFC: "VK_NONAME",
+    0xFD: "VK_PA1",
+    0xFE: "VK_OEM_CLEAR",
+}
+
+
+def print_vk_table():
+    """打印虚拟键码映射表"""
+    print(f"{'VK码 (Hex)':<12} {'VK码 (Dec)':<12} {'常量名':<25} {'按键名称':<20}")
+    print("-" * 80)
+
+    for vk, name in sorted(VK_CODE_MAP.items()):
+        # 获取实际按键名称
+        scan_code = user32.MapVirtualKeyW(vk, 0)  # MAPVK_VK_TO_VSC
+        lparam = scan_code << 16
+
+        # 检查是否是扩展键
+        if vk in [0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x2D, 0x2E]:
+            lparam |= 1 << 24
+
+        buffer = ctypes.create_unicode_buffer(32)
+        user32.GetKeyNameTextW(lparam, buffer, 32)
+        key_name = buffer.value or "-"
+
+        print(f"0x{vk:<10} {vk:<12} {name:<25} {key_name:<20}")
+
+
+if __name__ == "__main__":
+    print_vk_table()
