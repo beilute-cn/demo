@@ -1,0 +1,172 @@
+sdk: C:\mcux\mcuxsdk
+driver: drivers
+unit test: examples_int/unit_tests
+boards: [kw47evk]
+build: build2
+_build: C:\build
+
+default:
+    kw47evk:
+        prefix: 47
+        argument:
+            - -Dcore_id=cm33_core0
+            - -DCONFIG_MCUX_COMPONENT_utilities.gcov=y
+    kw45b41zevk:
+        prefix: 45
+        argument:
+            - -DCONFIG_MCUX_COMPONENT_utilities.gcov=y
+
+drivers:
+    _ccm32k:
+        ccm32k_test_all:
+    _ce:
+        ce_test_all:
+        ce_timeout:
+    _clock:
+        clock:
+            path: examples_int/_boards/{board}/unit_tests/clock
+            extra: -DCONFIG_MCUX_COMPONENT_utilities.unity=y -Dx={board}
+    _cmc:
+        cmc_basic_test:
+    _common:
+        common_func_atomic:
+        common_func_basic:
+    _components:
+        power_manager_basic_test:
+    _crc:
+        crc:
+            path: examples_int/unit_tests/crc
+            crc_basic_register:
+    _dma3:
+        edma_basic_register:
+            prepare: f1
+        edma_func_basic_hw_trigger:
+        edma_func_channel_link:
+        edma_func_scatter_gather:
+        edma_func_sw_trigger:
+    _elemu:
+        elemu_basic_test:
+    _ewm:
+        ewm_basic_register_tc1:
+        ewm_basic_register_tc2:
+        ewm_func_input_control:
+        ewm_func_non_windowed_mode:
+        ewm_func_windowed_mode:
+    flash_k4:
+        pflash_test_all:
+        pflash_timeout:
+    flexcan:
+        flexcan_basic_register:
+        flexcan_func_abnormal:
+        flexcan_func_interrupt:
+        flexcan_func_low_power:
+        flexcan_func_masking:
+        flexcan_func_mb_transfer:
+        flexcan_func_polling:
+        flexcan_func_remote_request:
+        flexcan_func_rx_fifo:
+        flexcan_timing_calculate:
+    flexio:
+        flexio_basic_register:
+        flexio_func_interrupt:
+        flexio_i2c_func_basic:
+        flexio_i2c_func_interrupt:
+        flexio_i2c_func_masterPollingSlaveInterrupt:
+        flexio_spi_func_basic_master:
+        flexio_spi_func_basic_slave:
+        flexio_spi_func_edma_master:
+        flexio_spi_func_edma_slave:
+        flexio_spi_func_interrupt_master:
+        flexio_spi_func_interrupt_slave:
+        flexio_spi_func_polling:
+        flexio_uart_func_basic:
+        flexio_uart_func_edma:
+        flexio_uart_func_interrupt:
+        flexio_uart_func_rb:
+    gpio:
+        gpio_func_test_all:
+    imu:
+        imu_polling:
+            path: examples_int/unit_tests/imu/imu_func_polling/prim_core
+            extra: --sysbuild
+    lin:
+        lin_master:
+            path: examples_int/unit_tests/lin/lin_test_all/master
+        lin_slave:
+            path: examples_int/unit_tests/lin/lin_test_all/slave
+    lpadc:
+        lpadc_basic_register:
+        lpadc_func_basic:
+        lpadc_func_edma:
+        lpadc_func_hardwareTrigger:
+        lpadc_func_loopconv:
+        lpadc_func_loopIncrement:
+        lpadc_func_nextCMD:
+    lpcmp:
+        lpcmp_basic_register:
+        lpcmp_func_basic:
+        lpcmp_func_filter:
+        lpcmp_func_sample:
+    lpi2c:
+        lpi2c_basic_register:
+        lpi2c_func_basic:
+        lpi2c_func_interrupt:
+        lpi2c_func_masterEdmaSlaveInterrupt:
+        lpi2c_func_masterIntSlaveNack:
+        lpi2c_func_masterPollingSlaveInterrupt:
+    lpit:
+        lpit_basic_register:
+        lpit_func_basic_counter:
+        lpit_func_channel_chaining:
+        lpit_func_input_capture:
+        lpit_func_trigger_accumulator:
+    lpspi:
+        lpspi:
+            path: examples_int/unit_tests/lpspi
+        lpspi_basic_register:
+        lpspi_func_edma:
+        lpspi_func_interrupt:
+        lpspi_func_masterInterruptSlaveEdma:
+        lpspi_func_masterPollingSlaveEdma:
+        lpspi_func_multi_edma:
+        lpspi_func_polling:
+    lptmr:
+        lptmr_test_all:
+    lpuart:
+        lpuart_func_edma:
+        lpuart_test_all:
+    ltc:
+        ltc_api:
+    mcm:
+        mcm:
+            path: examples_int/unit_tests/mcm
+    port:
+        port_func_test_all:
+    rtc:
+        rtc_test_all:
+    secure_subsystem:
+        secure_subsystem_test:
+    sema42:
+        sema42_basic:
+            path: examples_int/unit_tests/sema42/sema42_func_basic/core0
+
+    sfa:
+        sfa_basic_register:
+        sfa_fun_basic:
+        sfa_fun_frequency_interrupt:
+        sfa_fun_period_interrupt:
+    spc:
+        spc_basic_register_test:
+    tpm:
+        tpm_func_test_all:
+    trgmux:
+        trgmux_basic_register:
+    vref_1:
+        vref_1_unit_test_all:
+    wdog32:
+        wdog32_basic_register:
+        wdog32_func_non_windowed_mode:
+        wdog32_func_selftest:
+        wdog32_func_windowed_mode:
+    wuu:
+        wuu_test_all:
