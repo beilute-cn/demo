@@ -17,11 +17,18 @@ SCANF_ADVANCED_ENABLE=1
 */
 #include "fsl_debug_console.h"
 
+void prepare(void);
 void config_pins(void);
+
+#if 0
+int scan(char *format, ...);
+int print(char *format, ...);
+#endif
 
 int main(void)
 {
     BOARD_InitHardware();
+    prepare();
 
     PRINTF("MCUX SDK version: %s\r\n", MCUXSDK_VERSION_FULL_STR);
     PRINTF("start, check:%s\n", "sad1398289");
@@ -38,13 +45,17 @@ int main(void)
 
     while (1)
     {
-        scanf("%s", buffer);
-        // memset(buffer, 0, 100);
-        // SCANF("%s", buffer);
-        // PRINTF("%s\r\n", buffer);
+        memset(buffer, 0, 100);
+        scan("%[^\n]\n", buffer);
+        print("buffer = %s\n", buffer);
     }
 }
 
+void prepare(void)
+{
+    // 或者让系统自动分配缓冲区
+    // setvbuf(stdin, NULL, _IOLBF, 100);
+}
 void config_pins(void)
 {
 #ifdef PORT_CLOCKS
@@ -68,22 +79,21 @@ void config_pins(void)
     PORT_Type *ports[] = PORT_BASE_PTRS;
 
     uint8_t pins[4][33] = {
-#if 0 // frdmmcxc353
+#if 1 // frdmmcxc353
       // gpio 0
         {0xff, 0, 1, 2, 3, 4, 5, 6, 7, 0xff},
         // gpio 1
-        {   //
-            /*
-               uart1 tx
-               i2c1 sda
-               pwm a2
-               pwt0 in0
-            */
-         8, //
-         0xff, 0, 0, 1, 2, 3, 8, 9, 10, 11, 12, 0xff},
+        {
+            2,                  //
+            0xff,               //
+            0, 1,               //
+            2,                  // pwt0 in0
+            3, 8,               //    uart1 tx / i2c1 sda / pwm a2
+            9, 10, 11, 12, 0xff //
+        },
         // gpio 2
         {
-#if 0 // debug console uart0
+#if 0                                                                    // debug console uart0
             0, 1,
 #endif
             0xff, 2, 3, 4, 5, 6, 7, 16, 17, 18, 19, 20, 21, 22, 23, 0xff //
@@ -91,7 +101,7 @@ void config_pins(void)
         // gpio 3
         {0xff, 0, 1, 2, 3, 12, 13, 14, 15, 27, 28, 0xff},
 #endif
-#if 1 // kw47
+#if 0 // kw47
       // gpio a
         {0xff},
         // gpio b
@@ -271,11 +281,11 @@ size_t __write(int handle, const unsigned char *buf, size_t bufSize)
 {
     if (buf == NULL)
     {
-        return -1;
+        return SIZE_MAX - 1;
     }
     if (bufSize == 0)
     {
-        return -2;
+        return SIZE_MAX - 2;
     }
     status_t status = LPUART_WriteBlocking(LPUART1, buf, bufSize);
     if (status == kStatus_Success)
@@ -284,24 +294,20 @@ size_t __write(int handle, const unsigned char *buf, size_t bufSize)
     }
     else
     {
-        return -3;
+        return SIZE_MAX - 3;
     }
-    return -4;
 }
+
 size_t __read(int handle, unsigned char *buf, size_t bufSize)
 {
     if (buf == NULL)
     {
-        return -1;
+        return SIZE_MAX - 1;
     }
     if (bufSize == 0)
     {
-        return -2;
+        return SIZE_MAX - 2;
     }
-    // 或者让系统自动分配缓冲区
-    setvbuf(stdin, NULL, _IOLBF, 100);
-
-    printf("buf size=%u\n", bufSize);
     status_t status = LPUART_ReadBlocking(LPUART1, buf, bufSize);
     if (status == kStatus_Success)
     {
@@ -309,7 +315,60 @@ size_t __read(int handle, unsigned char *buf, size_t bufSize)
     }
     else
     {
-        return -3;
+        return SIZE_MAX - 3;
     }
-    return -4;
+}
+
+#include <stdarg.h>
+
+int scan(char *format, ...)
+{
+#define size (100)
+    static char buffer[size] = {0};
+    // static bool has_enter             = false;
+    char ch = '\0';
+    int i   = 0;
+    for (i = 0; i < size; ++i)
+    {
+        if (LPUART_ReadBlocking(LPUART1, (uint8_t *)&ch, 1) == kStatus_Success)
+        {
+            buffer[i] = ch;
+            if (ch == '\n')
+            {
+                break;
+            }
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    buffer[i] = '\0';
+    va_list args;
+    va_start(args, format);
+    int r = vsscanf(buffer, format, args);
+    va_end(args);
+    return r;
+#undef buffer_size
+}
+int E(int n)
+{
+    int t = 1;
+    while (!(n & t))
+    {
+        t <<= 1;
+    }
+    return t;
+}
+int print(char *format, ...)
+{
+#define size (100)
+    static char buffer[size] = {0};
+    va_list args;
+    va_start(args, format);
+    int r = vsnprintf(buffer, size, format, args);
+    va_end(args);
+    r = printf("%s", buffer);
+    return r;
+#undef buffer_size
 }
