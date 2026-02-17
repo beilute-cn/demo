@@ -1,0 +1,77 @@
+2026-02-12 18:01:12,697 - INFO - JLink GDB Server 守护进程已启动
+2026-02-12 18:01:12,697 - INFO - 检查间隔: 5 秒
+2026-02-12 18:01:12,698 - INFO - 锁文件: C:\Users\nxg13559\AppData\Local\Temp\jlink_daemon.lock
+2026-02-12 18:01:12,771 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:01:12,771 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD
+2026-02-12 18:01:12,782 - INFO - JLink GDB Server 已启动, PID: 23696
+2026-02-12 18:01:19,837 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:01:19,837 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD
+2026-02-12 18:01:19,854 - INFO - JLink GDB Server 已启动, PID: 14256
+2026-02-12 18:01:26,912 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:01:26,912 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD
+2026-02-12 18:01:26,921 - INFO - JLink GDB Server 已启动, PID: 13720
+2026-02-12 18:01:33,980 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:01:33,981 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD
+2026-02-12 18:01:33,989 - INFO - JLink GDB Server 已启动, PID: 30008
+2026-02-12 18:01:40,120 - INFO - 接收到退出信号，正在停止守护进程...
+2026-02-12 18:01:40,121 - INFO - 清理锁文件
+2026-02-12 18:01:40,122 - INFO - 守护进程已停止
+2026-02-12 18:02:21,087 - INFO - JLink GDB Server 守护进程已启动
+2026-02-12 18:02:21,087 - INFO - 检查间隔: 5 秒
+2026-02-12 18:02:21,087 - INFO - 锁文件: C:\Users\nxg13559\AppData\Local\Temp\jlink_daemon.lock
+2026-02-12 18:02:21,166 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:02:21,167 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD  -device KW47B42ZB7
+2026-02-12 18:02:21,180 - INFO - JLink GDB Server 已启动, PID: 28520
+2026-02-12 18:02:28,240 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:02:28,240 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD  -device KW47B42ZB7
+2026-02-12 18:02:28,250 - INFO - JLink GDB Server 已启动, PID: 29964
+2026-02-12 18:02:35,306 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:02:35,306 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD  -device KW47B42ZB7
+2026-02-12 18:02:35,315 - INFO - JLink GDB Server 已启动, PID: 30024
+2026-02-12 18:02:37,491 - INFO - 接收到退出信号，正在停止守护进程...
+2026-02-12 18:02:37,493 - INFO - 清理锁文件
+2026-02-12 18:02:37,493 - INFO - 守护进程已停止
+2026-02-12 18:03:58,371 - INFO - JLink GDB Server 守护进程已启动
+2026-02-12 18:03:58,372 - INFO - 检查间隔: 5 秒
+2026-02-12 18:03:58,372 - INFO - 锁文件: C:\Users\nxg13559\AppData\Local\Temp\jlink_daemon.lock
+2026-02-12 18:03:58,463 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:03:58,464 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD  -device KW47B42ZB7
+2026-02-12 18:04:10,919 - INFO - 接收到退出信号，正在停止守护进程...
+2026-02-12 18:04:10,920 - INFO - 清理锁文件
+2026-02-12 18:04:10,920 - INFO - 守护进程已停止
+2026-02-12 18:04:53,046 - INFO - JLink GDB Server 守护进程已启动
+2026-02-12 18:04:53,046 - INFO - 检查间隔: 5 秒
+2026-02-12 18:04:53,046 - INFO - 锁文件: C:\Users\nxg13559\AppData\Local\Temp\jlink_daemon.lock
+2026-02-12 18:04:53,122 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:04:53,123 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD  -device KW47B42ZB7
+2026-02-12 18:04:53,134 - INFO - JLink GDB Server 已启动, PID: 22128
+2026-02-12 18:05:47,216 - INFO - 接收到退出信号，正在停止守护进程...
+2026-02-12 18:05:47,217 - INFO - 清理锁文件
+2026-02-12 18:05:47,217 - INFO - 守护进程已停止
+2026-02-12 18:05:49,745 - INFO - JLink GDB Server 守护进程已启动
+2026-02-12 18:05:49,745 - INFO - 检查间隔: 5 秒
+2026-02-12 18:05:49,746 - INFO - 锁文件: C:\Users\nxg13559\AppData\Local\Temp\jlink_daemon.lock
+2026-02-12 18:05:49,817 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:05:49,818 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD  -device KW47B42ZB7
+2026-02-12 18:05:49,829 - INFO - JLink GDB Server 已启动, PID: 27348
+2026-02-12 18:06:07,889 - INFO - 接收到退出信号，正在停止守护进程...
+2026-02-12 18:06:07,889 - INFO - 清理锁文件
+2026-02-12 18:06:07,890 - INFO - 守护进程已停止
+2026-02-12 18:06:12,992 - INFO - JLink GDB Server 守护进程已启动
+2026-02-12 18:06:12,992 - INFO - 检查间隔: 5 秒
+2026-02-12 18:06:12,993 - INFO - 锁文件: C:\Users\nxg13559\AppData\Local\Temp\jlink_daemon.lock
+2026-02-12 18:06:13,064 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:06:13,064 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD  -device KW47B42ZB7
+2026-02-12 18:06:13,077 - INFO - JLink GDB Server 已启动, PID: 8792
+2026-02-12 18:07:14,329 - INFO - 接收到退出信号，正在停止守护进程...
+2026-02-12 18:07:14,330 - INFO - 清理锁文件
+2026-02-12 18:07:14,330 - INFO - 守护进程已停止
+2026-02-12 18:07:52,338 - INFO - JLink GDB Server 守护进程已启动
+2026-02-12 18:07:52,338 - INFO - 检查间隔: 5 秒
+2026-02-12 18:07:52,338 - INFO - 锁文件: C:\Users\nxg13559\AppData\Local\Temp\jlink_daemon.lock
+2026-02-12 18:07:52,405 - WARNING - JLink GDB Server 未运行，正在启动...
+2026-02-12 18:07:52,405 - INFO - 启动 JLink GDB Server: JLinkGDBServerCL.exe -if SWD -device KW47B42ZB7
+2026-02-12 18:07:52,415 - INFO - JLink GDB Server 已启动, PID: 11140
+2026-02-12 18:08:35,577 - INFO - 接收到退出信号，正在停止守护进程...
+2026-02-12 18:08:35,578 - INFO - 清理锁文件
+2026-02-12 18:08:35,579 - INFO - 守护进程已停止
