@@ -3,10 +3,15 @@ import time
 import subprocess
 from types import SimpleNamespace
 
+from winpty import PtyProcess
+import time
+
 
 import ctypes
 from ctypes import wintypes
 import sys
+
+import re
 
 """
 BOOL PeekNamedPipe(
@@ -72,47 +77,127 @@ class Process(io):
 
     def open(self) -> bool:
         if self.process is None:
-            self.process = subprocess.Popen(
-                args=self.command,
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-            )
+            self.process = PtyProcess.spawn(argv=self.command, dimensions=(33, 133))
         return self.process is not None
 
     def close(self) -> bool:
         # communicate() -> poll()
         # timeout -> kill()
-        self.process.kill()
-        self.process = None
+        # self.process.kill()
+        # self.process = None
+
+        # TODO close -> None
         return True
 
     def write(self, content: str) -> bool:
-        self.process.stdin.write(content)
-        self.process.stdin.flush()
+        # self.process.stdin.write(content)
+        # self.process.stdin.flush()
+        self.process.write(content)
         return True
 
     # TODO win32 peek
     def read(self) -> str:
-        n = peek_pipe_simple(msvcrt.get_osfhandle(self.process.stdout.fileno()))
-        if n:
-            print(f"{n=}")
-        n = 4180
-        return self.process.stdout.read(n)
+        # n = peek_pipe_simple(msvcrt.get_osfhandle(self.process.stdout.fileno()))
+        # if n:
+        # print(f"管道字符数：{n}")
+        # n = 100
+        # return self.process.stdout.read(n)
+        return self.process.read()
 
 
-import sys
-
-try:
-    p = Process("jlink")
-    p.open()
-    p.write("?\n")
+def read_util(process: Process, pattern: str | re.Pattern[str]) -> str:
+    r = []
     while True:
-        print(p.read(), end="", flush=True)
-except KeyboardInterrupt as e:
-    p.close()
-finally:
+        t = process.read()
+        print(f"{t}", end="", flush=True)
+        r.append(t)
+        if re.fullmatch(pattern, t):
+            break
+    return "".join(r)
+
+
+def exec(process: Process, command: str, end: str | re.Pattern[str]) -> str:
+    process.write(command)
+    return read_util(process, end)
+
+
+if True:
+    try:
+        p = Process("jlink")
+        p.open()
+        read_util(p, r"[\s\S]*J-Link>")
+        exec(p, "?\r\n", r"[\s\S]*J-Link>")
+        exec(p, "connect\r\n", r"[\s\S]*Device>")
+        exec(p, "\r\n", r"[\s\S]*TIF>")
+        exec(p, "S\r\n", r"[\s\S]*Speed>")
+        exec(p, "\r\n", r"[\s\S]*J-Link>")
+        exec(p, "erase\r\n", r"[\s\S]*J-Link>")
+        exec(p, "quit\r\n", r"[\s\S]*J-Link>")
+
+    except KeyboardInterrupt as e:
+        p.close()
+    finally:
+        print("")
+        sys.exit(-1)
+
+if True:
+    try:
+        # 启动 JLink
+        print("启动 JLink...")
+        jlink = PtyProcess.spawn("jlink")
+
+        # 等待初始化
+        time.sleep(0.5)
+
+        for i in range(10):
+            # time.sleep(0.01)
+            t = jlink.read()
+            if t:
+                print(f"[{i}] > {t}")
+            else:
+                break
+        sys.exit(-1)
+
+        # 发送命令
+        print("\n发送命令: ?")
+        jlink.write("?\r\n")
+
+        # 读取响应
+        time.sleep(0.2)
+        response = jlink.read()
+        print(response)
+
+        # # 连接设备
+        # print("\n连接设备...")
+        # jlink.write("connect\r\n")
+        # time.sleep(0.1)
+        # print(jlink.read())
+
+        # # 选择设备
+        # jlink.write("STM32F103C8\r\n")
+        # time.sleep(0.1)
+        # print(jlink.read())
+
+        # # 选择接口
+        # jlink.write("S\r\n")  # SWD
+        # time.sleep(0.1)
+        # print(jlink.read())
+
+        # # 速度
+        # jlink.write("4000\r\n")
+        # time.sleep(0.1)
+        # print(jlink.read())
+
+        # 退出
+        jlink.write("exit\r\n")
+        time.sleep(0.1)
+        print(jlink.read())
+
+    except Exception as e:
+        print(f"错误: {e}")
+    finally:
+        jlink.close()
+
     sys.exit(-1)
 
 
@@ -195,12 +280,12 @@ class Console:
                     self.condition.read.wait()
 
 
-try:
-    p = Process("jlink")
-    c = Console(p)
-    while True:
-        print("=" * 50)
-        c.send("erase\n")
-        time.sleep(5)
-finally:
-    c.close()
+# try:
+# p = Process("jlink")
+# c = Console(p)
+# while True:
+# print("=" * 50)
+# c.send("erase\n")
+# time.sleep(5)
+# finally:
+# c.close()

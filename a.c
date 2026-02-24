@@ -1,4 +1,4 @@
-#define run_test_gpio
+a.#define run_test_gpio
 // #define run_read_gpio
 
 #ifdef run_test_gpio
