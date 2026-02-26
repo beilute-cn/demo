@@ -7,6 +7,83 @@ import inspect
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
+import sys
+
+import msvcrt
+import sys
+import ctypes
+import time
+
+def read_all_stdin_buffer():
+    """读取标准输入缓冲区的所有内容"""
+    buffer_content = []
+    
+    # 读取所有待处理的字符
+    while msvcrt.kbhit():
+        ch = msvcrt.getwch()
+        buffer_content.append(ch)
+    
+    return ''.join(buffer_content)
+
+def get_stdin_buffer_size():
+    """获取输入缓冲区中的事件数量"""
+    kernel32 = ctypes.windll.kernel32
+    h_in = kernel32.GetStdHandle(-10)
+    num_events = ctypes.c_ulong()
+    kernel32.GetNumberOfConsoleInputEvents(h_in, ctypes.byref(num_events))
+    return num_events.value
+
+print("\033[c", end="", flush=True)
+
+# 使用示例
+print("请在 3 秒内输入一些内容...")
+time.sleep(3)
+
+buffer_size = get_stdin_buffer_size()
+print(f"\n缓冲区事件数: {buffer_size}")
+
+content = read_all_stdin_buffer()
+print(f"缓冲区内容: {repr(content)}")
+print(f"内容长度: {len(content)} 字符")
+
+# 发送到标准输出
+if content:
+    print(f"\n发送缓冲区内容到 stdout:")
+    sys.stdout.write(content)
+    sys.stdout.flush()
+    
+    
+print("\033[c", end="", flush=True)
+# time.sleep(1)
+# print("\r\n")
+
+a = input()
+
+import ctypes
+import sys
+import platform
+
+def flush_stdin_windows():
+    """Windows 平台刷新标准输入流"""
+    if platform.system() == 'Windows':
+        kernel32 = ctypes.windll.kernel32
+        # STD_INPUT_HANDLE = -10
+        h_in = kernel32.GetStdHandle(-10)
+        # 刷新控制台输入缓冲区
+        kernel32.FlushConsoleInputBuffer(h_in)
+        return True
+    return False
+
+# 使用
+if flush_stdin_windows():
+    print("✓ 输入缓冲区已刷新")
+else:
+    print("❌ 不是 Windows 平台")
+
+a = input()
+print(f"{a=}")
+sys.exit(-1)
+
 
 def log(message=""):
     # 获取调用者的帧

@@ -1,3 +1,9 @@
+- 从test.py中读取标准输入流内容，反馈到jlink.py
+
+
+
+
+
 - font
 - picture
 - serial port
