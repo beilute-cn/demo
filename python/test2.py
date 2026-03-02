@@ -1,4 +1,4 @@
-from console import Console
+from demo.python.console import Console
 from progress import Process
 import re
 import time

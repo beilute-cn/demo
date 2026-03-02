@@ -1,12 +1,16 @@
-.DEFAULT_GOAL := test_python
+.DEFAULT_GOAL := hello
 
 hello:
 	echo hello
 
-test_c:
-	gcc test.c
+run_c:
+	gcc test.c loog.c util.c
 	a.exe
 
-test_python:
+run_python:
 	clear
 	python test2.py
+
+run_lua:
+	echo unfinished
+
