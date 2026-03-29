@@ -1,0 +1,29 @@
+boards:
+  - name: kw47evk
+    # - build: # 默认在路径下使用板卡名称
+    # - coverage report: # 默认在路径下使用板卡名称
+    # XXX
+    arguments:
+      -Dcore_id: cm33_core0
+    elf_suffix: _cm33_core0
+  - name: kw45b41zevk
+
+drivers:
+  - name: secure_subsystem
+    unit tests:
+      - project: secure_subsystem_test
+        path: examples_int/unit_tests/secure_subsystem/secure_subsystem_test
+        arguments:
+          --sysbuild:
+
+  - name: ccm32k
+    unit tests:
+      - project: ccm32k_test_all
+        path: examples_int/unit_tests/ccm32k/ccm32k_test_all
+        # build: # 默认使用project
+        # elf: # 默认使用project
+        case_count: 1
+        driver_path:
+          old: 1
+          new: 1
+          json_base: 1
