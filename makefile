@@ -1,16 +1,14 @@
-.DEFAULT_GOAL := hello
+.DEFAULT_GOAL := coverage
+
+.PHONY: hello coverage
+
+make := mingw32-make.exe
+
 
 hello:
-	echo hello
+	cls
+	echo "hello from /makefile"
 
-run_c:
-	gcc test.c loog.c util.c
-	a.exe
-
-run_python:
-	clear
-	python test2.py
-
-run_lua:
-	echo unfinished
-
+coverage:
+	cls
+	$(make) -C coverage report
