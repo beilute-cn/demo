@@ -12,4 +12,5 @@ coverage:
 	$(make) -C coverage report
 
 clean:
+	del *.exe
 	$(make) -C coverage clean
