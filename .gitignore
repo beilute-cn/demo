@@ -5,3 +5,6 @@
 *.html
 *.gcda
 *.gcno
+
+command/T.cmd
+command/config.cmd
