@@ -1,3 +1,4 @@
+import io
 import threading
 import time
 import subprocess
@@ -50,24 +51,6 @@ def peek_pipe_simple(handle):
         error = kernel32.GetLastError()
         print(f"Error: {error}")
         return 0
-
-
-class io:
-    def open(self) -> bool:
-        pass
-
-    def close(self) -> bool:
-        pass
-
-    def write(self, content: str) -> bool:
-        pass
-
-    def read(self) -> str:
-        pass
-
-
-class Serial(io):
-    pass
 
 
 class Process(io):
@@ -280,12 +263,12 @@ class Console:
                     self.condition.read.wait()
 
 
-# try:
-# p = Process("jlink")
-# c = Console(p)
-# while True:
-# print("=" * 50)
-# c.send("erase\n")
-# time.sleep(5)
-# finally:
-# c.close()
+try:
+    p = Process("jlink")
+    c = Console(p)
+    while True:
+        print("=" * 50)
+        c.send("erase\n")
+        time.sleep(5)
+finally:
+    c.close()

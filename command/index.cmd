@@ -1,18 +1,92 @@
 @REM @echo off
 
 :: 也可以在T.cmd中判断，使用当前文件名，不需要config.cmd
-call %~dp0%\config.cmd enable
+call %~dp0%config.cmd enable
 
-if "%~1"=="begin" (
-  doskey %command%=call "%cd%\%command%.cmd" $*
+@REM 无子命令，显示帮助信息
+if "%~1"=="" (
+  echo "无参数，帮助"
   goto :end
 )
-if "%~1"=="end" (
-  doskey %command%=
-  goto :end
+
+@REM 跳转到子命令
+@REM echo label_%~1%
+echo %*
+@REM XXX 为什么这里需要%作为空格，传递全部参数，需要两个%
+call :label_%~1% % %%* 2>nul
+if errorlevel 1 (
+  echo "标签" label_%~1% "不存在"
+  ) else (
+  @REM echo "标签存在"
 )
-echo call index.cmd with %*
+goto :end
+
+:label_begin
+doskey %command%=call "%cd%\%command%.cmd" $*
+goto :eof
+
+:label_end
+doskey %command%=
+goto :eof
+
+:label_dapeng
+python %~dp0%dapeng.py
+goto :eof
+
+:label_haps
+python %~dp0%haps.py
+goto :eof
+
+:label_gdb
+
+title gdb server
+
+if "%~2"=="" (
+  echo "未指定板卡"
+  goto :eof
+)
+
+if "%~2"=="47" (
+  JLinkGDBServerCL -if SWD -device KW47B42ZB7
+  goto :eof
+)
+
+if "%~2"=="45" (
+  JLinkGDBServerCL -if SWD -device KW45B41Z83
+  goto :eof
+)
+
+echo 未知板卡：%~2%
+
+goto :eof
+
+::JLinkGDBServerCL -if SWD -device KW47B42ZB7 -port 2500 -USB 1069278206
+@REM JLinkGDBServerCL -if SWD -device MCXW236
+
+goto :eof
+
+:label_sdk
+@REM title sdk2 %date% %time%
+title sdk
+cd /d C:\mcux\mcuxsdk
+goto :eof
+
+:label_sdk2
+title sdk2
+cd /d C:\mcux2\mcuxsdk
+goto :eof
+
+:label_ze
+title zephyr
+cd /d C:\zephyr\zephyr
+goto :eof
+
+:label_temp
+title temp
+cd /d C:\sys\data\temp
+goto :eof
 
 :end
-call %~dp0%\config.cmd disable
+echo call index.cmd with %*
+call %~dp0%config.cmd disable
 goto :eof

@@ -66,7 +66,8 @@ class A:
     def unactive(self):
         self.stop = True
 
-if False:
+
+if True:
     coms = []
 
     while True:
@@ -91,4 +92,3 @@ if False:
             time.sleep(1)
         except KeyboardInterrupt:
             exit(-1)
-
