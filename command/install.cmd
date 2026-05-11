@@ -10,7 +10,7 @@ if not "%~1"=="" (
 
 :: 输出配置信息
 (
-echo @echo off
+echo @echo on
 echo.
 echo chcp 65001 ^>nul
 echo.

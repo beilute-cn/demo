@@ -1,5 +1,9 @@
 @echo off
 
+@REM 设置命令提示符号
+prompt [X] $P$G
+goto :eof
+
 @REM ----------------------------------
 @REM 使用goto，跳转到子命令
 @REM 检测子命令是否存在
