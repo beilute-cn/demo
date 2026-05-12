@@ -57,7 +57,7 @@ echo @echo off
 echo.
 echo chcp 65001 ^>nul
 echo.
-echo call "%cd%\index.cmd" %%*
+echo call "%~dp0%setup.cmd"
 ) > "%file%"
 
 ::
