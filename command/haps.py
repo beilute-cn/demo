@@ -18,6 +18,9 @@ sdk = None
 # 保存到目标路径，当前文件夹，添加haps前缀
 dest = f"./haps_{Path.cwd().name}"
 
+compiler = None
+board = None
+
 
 # 1. 从当前路径下的cmake缓存文件读取项目信息
 # 设置sdk路径
@@ -55,10 +58,25 @@ def read_project_information_from_cmakecache_file():
 
                 project[key] = {"type": var_type, "value": value}
     global sdk
+    global compiler
+    global board
+
+    compiler = project["CONFIG_TOOLCHAIN"]["value"]
+    board = project["board"]["value"]
+
     sdk = project["SdkRootDirPath"]["value"]  # "C:/mcux/mcuxsdk/"
     # 保留CmakeCache.txt文件，从中读取项目信息
     cache_path = cache.absolute().as_posix()
-    files[cache_path] = cache_path.replace(sdk, dest)
+
+    # 对于armgcc工程，不会重新编译，将所有文件复制到同级目录
+    match compiler:
+        case "armgcc":
+            files[cache_path] = dest + "/source/" + cache.name
+        case "iar":
+            files[cache_path] = cache_path.replace(sdk, dest)
+        case _:
+            print(f"未知的编译器: {compiler}")
+            sys.exit(-get_line_number())
 
 
 # 2. 从当前路径下的源文件列表读取要复制的文件
@@ -86,13 +104,19 @@ def read_source_files_from_source_list_file():
             if file in files:
                 print(f"文件已存在: {file}")
                 continue
-            files[file] = file.replace(sdk, dest)
+            # 对于armgcc工程，不会重新编译，将所有文件复制到同级目录
+            match compiler:
+                case "armgcc":
+                    files[file] = dest + "/source/" + Path(file).name
+                case "iar":
+                    files[file] = file.replace(sdk, dest)
+                case _:
+                    print(f"未知的编译器: {compiler}")
+                    sys.exit(-get_line_number())
 
 
 # 3. 对特定编译器/板卡需要的额外文件
 def extra():
-    compiler = project["CONFIG_TOOLCHAIN"]["value"]
-    board = project["board"]["value"]
 
     # 针对不同的编译器
     # 对于iar编译器，包含iar路径
@@ -118,7 +142,7 @@ def extra():
         # 只有一个elf文件
         elf = elf[0]
         elf_path = elf.absolute().as_posix()
-        files[elf_path] = elf_path.replace(sdk, dest)
+        files[elf_path] = dest + "/" + elf.name
 
     else:
         print(f"未知的编译器: {compiler}")
@@ -131,11 +155,26 @@ def extra():
     if board == "frdmmcxc353":
         temp = [f"{sdk}/devices_int/MCX/MCXC/MCXC353/iar/MCXC353_ram.icf"]
         for f in temp:
-            files[f] = f.replace(sdk, dest)
+            match compiler:
+                case "armgcc":
+                    files[file] = dest + "/source/" + Path(f).name
+                case "iar":
+                    files[f] = f.replace(sdk, dest)
+                case _:
+                    print(f"未知的编译器: {compiler}")
+                    sys.exit(-get_line_number())
     elif board == "mimxrt2660evk":
         temp = [f"{sdk}/devices_int/RT/RT2660/MIMXRT2662/drivers/fsl_memory.h"]
         for f in temp:
             files[f] = f.replace(sdk, dest)
+            match compiler:
+                case "armgcc":
+                    files[f] = dest + "/source/" + Path(f).name
+                case "iar":
+                    files[f] = f.replace(sdk, dest)
+                case _:
+                    print(f"未知的编译器: {compiler}")
+                    sys.exit(-get_line_number())
     elif board == "kw47evk":
         pass
     elif board == "frdmmcxn947":
@@ -149,6 +188,8 @@ def extra():
         files[r"C:\Users\nxg13559\OneDrive - NXP\haps_1\rt2660\debug"] = (
             f"{dest}/build/{Path.cwd().name}/iar"
         )
+    # 对armgcc工程，打开并保存
+    # TODO
 
 
 def copy_all_files_and_folders():

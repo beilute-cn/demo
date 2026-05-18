@@ -12,6 +12,7 @@ doskey gdb1=call "%~dp0%gdb1.cmd"
 doskey gdb2=call "%~dp0%gdb2.cmd"
 doskey haps=python "%~dp0%haps.py"
 doskey rdapeng=python "%~dp0%dapeng.py"
+doskey command=call "%~dp0%command.cmd"
 prompt [%command%] $P$G
 
 call "%~dp0%config.cmd" disable

@@ -1,4 +1,22 @@
-@echo off
+@REM @echo off
+
+@REM 有没有gt符号
+
+set "count=5"
+
+if %count% equ 0 (
+  echo 100
+  ) else (
+  echo 200
+)
+
+if %count% gtr 0 (
+  echo 1000
+  ) else (
+  echo 2000
+)
+
+goto :eof
 
 @REM 设置命令提示符号
 prompt [X] $P$G
