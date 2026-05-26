@@ -1,3 +1,9 @@
+
+
+对gcovr使用mklink /j链接无效，会获取实际路径
+
+
+
 - 从test.py中读取标准输入流内容，反馈到jlink.py
 
 
