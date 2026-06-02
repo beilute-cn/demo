@@ -177,6 +177,8 @@ def extra():
                     sys.exit(-get_line_number())
     elif board == "kw47evk":
         pass
+    elif board == "frdmmcxw72":
+        pass
     elif board == "frdmmcxn947":
         pass
     else:
