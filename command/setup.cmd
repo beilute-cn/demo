@@ -13,6 +13,7 @@ doskey gdb2=call "%~dp0%gdb2.cmd"
 doskey haps=python "%~dp0%haps.py"
 doskey rdapeng=python "%~dp0%dapeng.py"
 doskey command=call "%~dp0%command.cmd"
+@REM doskey make="C:\sys\exe\msys64\ucrt64\bin\mingw32-make.exe" $*
 prompt [%command%] $P$G
 
 call "%~dp0%config.cmd" disable
