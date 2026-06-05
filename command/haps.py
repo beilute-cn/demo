@@ -1,7 +1,9 @@
 import shutil
 from pathlib import Path
 import sys
+import os
 import inspect
+import re
 
 
 def get_line_number():
@@ -175,21 +177,27 @@ def extra():
                 case _:
                     print(f"未知的编译器: {compiler}")
                     sys.exit(-get_line_number())
+        # 对iar工程添加，ozone命令和jlink脚本
+        files[r"C:\Users\nxg13559\OneDrive - NXP\haps_1\rt2660\debug"] = f"{dest}/" + (
+            f"build/{Path.cwd().name}/iar" if compiler == "iar" else ""
+        )
+        # 对armgcc工程，打开并保存
+        # TODO
+        # 在文件复制之后，再打开
+        # print(f"{compiler=}")
+        # if compiler == "armgcc":
+        #     print(f"hello world")
+        #     os.system(f'(cd "{dest}") & (z)')
+
     elif board == "kw47evk":
+        pass
+    elif board == "frdmmcxw72":
         pass
     elif board == "frdmmcxn947":
         pass
     else:
         print(f"未知的板卡: {board}")
         sys.exit(-get_line_number())
-
-    # 对iar工程添加，ozone命令和jlink脚本
-    if compiler == "iar" and board == "mimxrt2660evk":
-        files[r"C:\Users\nxg13559\OneDrive - NXP\haps_1\rt2660\debug"] = (
-            f"{dest}/build/{Path.cwd().name}/iar"
-        )
-    # 对armgcc工程，打开并保存
-    # TODO
 
 
 def copy_all_files_and_folders():
@@ -232,3 +240,32 @@ if __name__ == "__main__":
     extra()
     # print_all_files()
     copy_all_files_and_folders()
+
+    # 在文件复制之后，再打开
+    if compiler == "armgcc" and board == "mimxrt2660evk":
+        print(f"hello world")
+        os.system(f'(cd "{dest}") & (z)')
+        # 保存工程
+        jdebug = [f for f in Path(".").rglob("*.jdebug")]
+        n = len(jdebug)
+        if n == 0:
+            print(f"未找到ozone工程文件")
+            sys.exit(-get_line_number())
+        elif n > 1:
+            print(f"找到 {n} 个ozone工程文件")
+            for index, file in enumerate(jdebug):
+                print(f"{index}. {file}")
+            sys.exit(-get_line_number())
+        # 只有一个ozone工程文件
+        jdebug = jdebug[0]
+        with open(jdebug, "r+", encoding="utf-8") as f:
+            lines = f.readlines()
+            for index, line in enumerate(lines):
+                if re.fullmatch(r" +File.Open.*\n", line):
+                    # 采用相同的缩进
+                    n = len(line) - len(line.lstrip())
+                    lines.insert(index, f" " * n + f'Project.SetRootPath ("source")\n')
+                    f.writelines(lines)
+                    break
+            else:
+                print(f"没有找到合适的位置")
